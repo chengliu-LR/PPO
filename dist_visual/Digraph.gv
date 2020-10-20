@@ -1,0 +1,82 @@
+digraph {
+	graph [size="12,12"]
+	node [align=left fontsize=12 height=0.2 ranksep=0.1 shape=box style=filled]
+	4999880544 [label=AddBackward0 fillcolor=darkolivegreen1]
+	4999877464 -> 4999880544
+	4999877464 [label=AddBackward0]
+	5000054880 -> 4999877464
+	5000054880 [label=MulBackward0]
+	5000054824 -> 5000054880
+	5000054824 [label=SqueezeBackward1]
+	5000054936 -> 5000054824
+	5000054936 [label=GatherBackward]
+	5000055160 -> 5000054936
+	5000055160 [label=LogBackward]
+	5000055272 -> 5000055160
+	5000055272 [label=ClampBackward]
+	5000055384 -> 5000055272
+	5000055384 [label=DivBackward0]
+	5000055496 -> 5000055384
+	5000055496 [label=SoftmaxBackward]
+	5000055664 -> 5000055496
+	5000055664 [label=AddBackward0]
+	5000055776 -> 5000055664
+	5000055776 [label=SqueezeBackward3]
+	5000055944 -> 5000055776
+	5000055944 [label=MmBackward]
+	5000056056 -> 5000055944
+	5000056056 [label=TBackward]
+	5000056168 -> 5000056056
+	5000056168 [label="actor.0.weight
+ (4, 8)" fillcolor=lightblue]
+	5000055832 -> 5000055664
+	5000055832 [label="actor.0.bias
+ (4)" fillcolor=lightblue]
+	5000055552 -> 5000055384
+	5000055552 [label=SumBackward1]
+	5000055496 -> 5000055552
+	5000054768 -> 4999877464
+	5000054768 [label=NegBackward]
+	5000055048 -> 5000054768
+	5000055048 [label=SumBackward1]
+	5000055216 -> 5000055048
+	5000055216 [label=MulBackward0]
+	5000055160 -> 5000055216
+	5000055384 -> 5000055216
+	5000054600 -> 4999880544
+	5000054600 [label=MseLossBackward]
+	5000054992 -> 5000054600
+	5000054992 [label=ViewBackward]
+	5000055328 -> 5000054992
+	5000055328 [label=AddBackward0]
+	5000055608 -> 5000055328
+	5000055608 [label=SqueezeBackward3]
+	5000056336 -> 5000055608
+	5000056336 [label=MmBackward]
+	5000056224 -> 5000056336
+	5000056224 [label=UnsqueezeBackward0]
+	5000056504 -> 5000056224
+	5000056504 [label=ReluBackward0]
+	5000056616 -> 5000056504
+	5000056616 [label=AddBackward0]
+	5000056728 -> 5000056616
+	5000056728 [label=SqueezeBackward3]
+	5000253568 -> 5000056728
+	5000253568 [label=MmBackward]
+	5000253680 -> 5000253568
+	5000253680 [label=TBackward]
+	5000253792 -> 5000253680
+	5000253792 [label="critic.0.weight
+ (2, 8)" fillcolor=lightblue]
+	5000056784 -> 5000056616
+	5000056784 [label="critic.0.bias
+ (2)" fillcolor=lightblue]
+	5000056448 -> 5000056336
+	5000056448 [label=TBackward]
+	5000056392 -> 5000056448
+	5000056392 [label="critic.2.weight
+ (1, 2)" fillcolor=lightblue]
+	5000055720 -> 5000055328
+	5000055720 [label="critic.2.bias
+ (1)" fillcolor=lightblue]
+}
