@@ -80,9 +80,6 @@ class PPO():
 
         self.policy = ActorCritic(state_dim, action_dim, hidden_dim).to(device)
         self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=lr)
-        self.policy_old = ActorCritic(state_dim, action_dim, hidden_dim).to(device)
-        self.policy_old.load_state_dict(self.policy.state_dict())
-
         self.MSELoss = nn.MSELoss()
 
     def update(self, memory):
@@ -124,9 +121,6 @@ class PPO():
             self.optimizer.zero_grad()
             loss.mean().backward()
             self.optimizer.step()
-
-        # copy new weights into old policy
-        self.policy_old.load_state_dict(self.policy.state_dict())
 
 def main():
     env_name = "LunarLander-v2"
