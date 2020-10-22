@@ -2,6 +2,8 @@ import gym
 from PPOv2 import PPO, Memory
 from PIL import Image
 import torch
+import matplotlib.pyplot as plt
+import numpy as np
 
 def test():
     ############## Hyperparameters ##############
@@ -52,8 +54,16 @@ def test():
         print('Episode: {}\tReward: {}'.format(ep, int(ep_reward)))
         ep_reward = 0
         env.close()
-    
+
+def plot_rewards():
+    figure = plt.figure(dpi=500)
+    rewards = np.loadtxt("log.txt", delimiter=',')
+    print(rewards.shape)
+    plt.plot(rewards[:,1])
+    plt.savefig("./rewards.png")
+
 if __name__ == '__main__':
+    #plot_rewards()
     test()
     
     
