@@ -70,7 +70,7 @@ class ActorCritic(nn.Module):
         state_value = self.value_layer(state)
         # action_logprobs indirectly represents the policy $\pi_{\theta}(s,a)$
         return action_logprobs, torch.squeeze(state_value), dist_entropy
-        
+
 class PPO():
     def __init__(self, state_dim, action_dim, n_latent_var, lr, betas, gamma, K_epochs, eps_clip):
         self.lr = lr
@@ -96,7 +96,7 @@ class PPO():
             discounted_reward = reward + (self.gamma * discounted_reward)
             rewards.insert(0, discounted_reward)
         
-        # Normalizing the rewards:
+        # Normalizing the rewards
         rewards = torch.tensor(rewards, dtype=torch.float32).to(device)
         rewards = (rewards - rewards.mean()) / (rewards.std() + 1e-5)
         
@@ -105,15 +105,15 @@ class PPO():
         old_actions = torch.stack(memory.actions).to(device).detach()
         old_logprobs = torch.stack(memory.logprobs).to(device).detach()
         
-        # Optimize policy for K epochs:
+        # Optimize policy for K epochs
         for _ in range(self.K_epochs):
-            # Evaluating old actions and values:
+            # Evaluating old actions and values
             logprobs, state_values, dist_entropy = self.policy.evaluate(old_states, old_actions)
             
-            # Finding the ratio (pi_theta / pi_theta__old):
+            # Finding the ratio (pi_theta / pi_theta__old)
             ratios = torch.exp(logprobs - old_logprobs.detach())
             
-            # Finding Surrogate Loss (no gradient in advantages):
+            # Finding Surrogate Loss (no gradient in advantages)
             advantages = rewards - state_values.detach()
             surr1 = ratios * advantages
             surr2 = torch.clamp(ratios, 1-self.eps_clip, 1+self.eps_clip) * advantages
