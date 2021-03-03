@@ -1,8 +1,7 @@
+import gym
 import torch
 import torch.nn as nn
 from torch.distributions import Categorical
-import numpy as np
-import gym
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -139,7 +138,7 @@ def main():
     K_epochs =4
     eps_clip = 0.2
     random_seed = None
-
+    
     if random_seed:
          torch.manual_seed(random_seed)
          env.seed(random_seed)
