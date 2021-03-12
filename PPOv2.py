@@ -5,6 +5,7 @@ from torch.distributions import Categorical
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+# replay memory
 class Memory():
     def __init__(self):
         self.actions = []
@@ -20,6 +21,7 @@ class Memory():
         del self.rewards[:]
         del self.is_terminals[:]
 
+
 class ActorCritic(nn.Module):
     def __init__(self, state_dim, action_dim, hidden_dim):
         super(ActorCritic, self).__init__()
@@ -34,7 +36,7 @@ class ActorCritic(nn.Module):
             nn.Softmax(dim=-1)
             )
         
-        #critic network
+        # critic network
         self.critic = nn.Sequential(
             nn.Linear(state_dim, hidden_dim),
             nn.Tanh(),
@@ -59,7 +61,9 @@ class ActorCritic(nn.Module):
         return action.item()
     
     def evaluate(self, state, action):
-        # return the 1) log probability of the evaluated action and 2) state values to calculate the advantage, 3) entropy reward of the probabilistic policy.
+        # return the 1) log probability of the evaluated action and 2) state
+        # values to calculate the advantage,
+        # 3) entropy reward of the probabilistic policy.
 
         action_probs = self.actor(state)
         dist = Categorical(action_probs)
@@ -70,6 +74,7 @@ class ActorCritic(nn.Module):
         state_values = self.critic(state)
 
         return action_logprobs, torch.squeeze(state_values), dist_entropy
+
 
 class PPO():
     def __init__(self, state_dim, action_dim, hidden_dim, lr, gamma, K_epochs, eps_clip):
